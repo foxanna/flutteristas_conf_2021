@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:space_launches/di/injection.dart';
 
 void main() {
+  configureDI();
   runApp(SpaceLaunchesApp());
 }
 
