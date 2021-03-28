@@ -1,19 +1,23 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:space_launches/api/models/space_launch.dart';
 import 'package:space_launches/api/service/space_launch_api_service.dart';
 import 'package:space_launches/di/injection.dart';
+import 'package:space_launches/routes/router.gr.dart';
 
 void main() {
   configureDI(environment: Environment.prod);
   runApp(SpaceLaunchesApp());
 }
 
+final _router = SpaceLaunchesRouter();
+
 class SpaceLaunchesApp extends StatelessWidget {
   const SpaceLaunchesApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
+  Widget build(BuildContext context) => MaterialApp.router(
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
           primaryColor: Color(0xFFD1B2F4),
@@ -22,7 +26,8 @@ class SpaceLaunchesApp extends StatelessWidget {
               .appBarTheme
               .copyWith(brightness: Brightness.dark),
         ),
-        home: SpaceLaunchesListPage(),
+        routerDelegate: _router.delegate(),
+        routeInformationParser: _router.defaultRouteParser(),
       );
 }
 
@@ -126,7 +131,10 @@ class LaunchTile extends StatelessWidget {
         trailing: spaceLaunch.status != null
             ? LaunchStatusWidget(status: spaceLaunch.status!)
             : null,
-        onTap: () {},
+        onTap: () {
+          AutoRouter.of(context)
+              .push(SpaceLaunchDetailsPageRoute(spaceLaunch: spaceLaunch));
+        },
       );
 }
 
