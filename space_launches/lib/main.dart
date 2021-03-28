@@ -43,6 +43,58 @@ class SpaceLaunchesListPage extends StatelessWidget {
       );
 }
 
+class SpaceLaunchDetailsPage extends StatelessWidget {
+  const SpaceLaunchDetailsPage({Key? key, required this.spaceLaunch})
+      : super(key: key);
+
+  final SpaceLaunch spaceLaunch;
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text(spaceLaunch.name),
+          actions: [
+            if (spaceLaunch.status != null)
+              LaunchStatusWidget(status: spaceLaunch.status!)
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Image.network(
+                spaceLaunch.image,
+                fit: BoxFit.contain,
+              ),
+              FutureBuilder<SpaceLaunch>(
+                future: getIt<SpaceLaunchApiService>()
+                    .getUpcomingLaunch(spaceLaunch.id),
+                builder: (context, snapshot) => snapshot.hasData
+                    ? Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text('⏱ Start ${snapshot.data!.windowStart}'),
+                            Text('⏱ End ${snapshot.data!.windowEnd}'),
+                            if (snapshot.data!.mission != null) ...[
+                              Text(
+                                  '🎯 Mission: ${snapshot.data!.mission!.name}'),
+                              Text('${snapshot.data!.mission!.description}'),
+                            ]
+                          ],
+                        ),
+                      )
+                    : snapshot.hasError
+                        ? Error(error: snapshot.error!)
+                        : const Loading(),
+              ),
+            ],
+          ),
+        ),
+      );
+}
+
 class LaunchesList extends StatelessWidget {
   const LaunchesList({Key? key, required this.launches}) : super(key: key);
 
