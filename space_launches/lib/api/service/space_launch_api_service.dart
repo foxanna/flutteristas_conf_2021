@@ -6,10 +6,10 @@ import 'package:space_launches/api/models/space_launch.dart';
 part 'space_launch_api_service.g.dart';
 
 @lazySingleton
-@RestApi(baseUrl: "https://ll.thespacedevs.com/2.0.0/")
+@RestApi()
 abstract class SpaceLaunchApiService {
   @factoryMethod
-  factory SpaceLaunchApiService(Dio dio, {String? baseUrl}) =
+  factory SpaceLaunchApiService(Dio dio, {@Named('baseUrl') String baseUrl}) =
       _SpaceLaunchApiService;
 
   @GET('/launch/upcoming')
