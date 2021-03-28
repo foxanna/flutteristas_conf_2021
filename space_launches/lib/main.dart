@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:space_launches/api/models/space_launch.dart';
@@ -10,8 +9,6 @@ void main() {
   configureDI(environment: Environment.prod);
   runApp(SpaceLaunchesApp());
 }
-
-final _router = SpaceLaunchesRouter();
 
 class SpaceLaunchesApp extends StatelessWidget {
   const SpaceLaunchesApp({Key? key}) : super(key: key);
@@ -26,8 +23,9 @@ class SpaceLaunchesApp extends StatelessWidget {
               .appBarTheme
               .copyWith(brightness: Brightness.dark),
         ),
-        routerDelegate: _router.delegate(),
-        routeInformationParser: _router.defaultRouteParser(),
+        routerDelegate: getIt<SpaceLaunchesRouter>().delegate(),
+        routeInformationParser:
+            getIt<SpaceLaunchesRouter>().defaultRouteParser(),
       );
 }
 
@@ -132,7 +130,7 @@ class LaunchTile extends StatelessWidget {
             ? LaunchStatusWidget(status: spaceLaunch.status!)
             : null,
         onTap: () {
-          AutoRouter.of(context)
+          getIt<SpaceLaunchesRouter>()
               .push(SpaceLaunchDetailsPageRoute(spaceLaunch: spaceLaunch));
         },
       );
