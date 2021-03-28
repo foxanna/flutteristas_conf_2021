@@ -15,3 +15,6 @@ abstract class SpaceLaunchApiService {
   @GET('/launch/{id}')
   Future<SpaceLaunch> getUpcomingLaunch(@Path("id") String id);
 }
+
+Future<UpcomingLaunches> example() =>
+    SpaceLaunchApiService(Dio()).getUpcomingLaunches();
