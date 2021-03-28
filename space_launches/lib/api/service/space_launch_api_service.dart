@@ -8,6 +8,7 @@ part 'space_launch_api_service.g.dart';
 @lazySingleton
 @RestApi(baseUrl: "https://ll.thespacedevs.com/2.0.0/")
 abstract class SpaceLaunchApiService {
+  @factoryMethod
   factory SpaceLaunchApiService(Dio dio, {String? baseUrl}) =
       _SpaceLaunchApiService;
 
