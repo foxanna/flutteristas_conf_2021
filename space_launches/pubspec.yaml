@@ -14,6 +14,7 @@ dependencies:
   retrofit: ^2.0.0-beta1
   get_it: ^6.0.0
   injectable: ^1.2.2
+  auto_route: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -24,6 +25,7 @@ dev_dependencies:
   json_serializable: ^4.1.0
   retrofit_generator: ^2.0.0-beta2
   injectable_generator: ^1.2.2
+  auto_route_generator: ^1.0.2
 
 flutter:
   uses-material-design: true
