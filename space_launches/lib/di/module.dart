@@ -5,6 +5,11 @@ import 'package:dio/dio.dart';
 abstract class InjectableModule {
   Dio get dio => Dio();
 
+  @dev
   @Named('baseUrl')
-  String get baseUrl => 'https://ll.thespacedevs.com/2.0.0/';
+  String get baseUrlDev => 'https://ll.thespacedevs.com/2.0.0/';
+
+  @prod
+  @Named('baseUrl')
+  String get baseUrlProd => 'https://ll.thespacedevs.com/2.0.0/';
 }
