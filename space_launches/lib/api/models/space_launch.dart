@@ -39,3 +39,13 @@ class LaunchMission with _$LaunchMission {
   factory LaunchMission.fromJson(Map<String, dynamic> json) =>
       _$LaunchMissionFromJson(json);
 }
+
+@freezed
+class UpcomingLaunches with _$UpcomingLaunches {
+  const factory UpcomingLaunches({
+    required List<SpaceLaunch> results,
+  }) = _UpcomingLaunches;
+
+  factory UpcomingLaunches.fromJson(Map<String, dynamic> json) =>
+      _$UpcomingLaunchesFromJson(json);
+}
